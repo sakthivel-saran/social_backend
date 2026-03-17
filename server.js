@@ -19,23 +19,17 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB Connection
+// const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/social_media_app';
+
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/social_media_app';
 
-const BUILDFOLDER = "D:/sakthi/react/renu/social/frontend/build/";
+const BUILDFOLDER = process.env.REACT_URI || "D:/sakthi/react/renu/social/frontend/build/";
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://localhost:3500',
-    'http://127.0.0.1:3500'
-  ],
-  credentials: true
-}));
+app.use(cors());
 
 // Routes
 app.use(express.static(BUILDFOLDER));
